@@ -3,4 +3,4 @@ uvicorn
 numpy
 pandas
 pydantic
-scikit-learn
+scikit-learn=1.5.1

@@ -26,6 +26,12 @@ class PredictionInput(BaseModel):
     ssd: int
     hdd: int
 
+@app.get("/")
+def home():
+    return {"message": "Laptop Price Predictor API is running!"}
+
+
+
 @app.post("/predict")
 def predict_price(data: PredictionInput):
    
