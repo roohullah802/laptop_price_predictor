@@ -51,7 +51,7 @@ def predict_price(data: PredictionInput):
             "ppi": ppi,  
             "SSD (GB)": data.ssd,  
             "HDD (GB)": data.hdd  
-        }])
+        }]) 
 
       
         transformed_input = pipeline.named_steps["step1"].transform(input_df)
