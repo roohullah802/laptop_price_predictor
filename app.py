@@ -36,6 +36,7 @@ def predict_price(data: PredictionInput):
         x_res, y_res = map(int, data.screenResolution.split("x"))
         ppi = ((x_res**2 + y_res**2) ** 0.5) / data.screenSize
 
+
   
         input_df = pd.DataFrame([{
             "Company": data.Company,
