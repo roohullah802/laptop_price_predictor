@@ -7,6 +7,8 @@ import pandas as pd
 
 with open("pipe.pkl", "rb") as f:
     pipeline = pickle.load(f)
+with open("model.pkl", "rb") as d:
+    model = pickle.load(d)    
 
 app = FastAPI()
 
@@ -28,7 +30,9 @@ class PredictionInput(BaseModel):
 
 @app.get("/")
 def home():
+    print(model)
     return {"message": "Laptop Price Predictor API is running!"}
+
 
 
 
