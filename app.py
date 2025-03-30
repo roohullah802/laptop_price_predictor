@@ -30,8 +30,8 @@ class PredictionInput(BaseModel):
 
 @app.get("/")
 def home():
-    print(model)
-    return {"message": "Laptop Price Predictor API is running!"}
+    return  {"message":"welcome to laptop price predictor ml model"}
+
 
 
 
