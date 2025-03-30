@@ -7,8 +7,8 @@ import pandas as pd
 
 with open("pipe.pkl", "rb") as f:
     pipeline = pickle.load(f)
-with open("model.pkl", "rb") as d:
-    model = pickle.load(d)    
+with open("x_train.pkl", "rb") as d:
+    X_train = pickle.load(d)    
 
 app = FastAPI()
 
@@ -30,10 +30,29 @@ class PredictionInput(BaseModel):
 
 @app.get("/")
 def home():
-    return  {"message":"welcome to laptop price predictor ml model"}
+    if X_train is None:
+        return {"error": "Model or training data not loaded. Check the files."}
 
+    try:
+        # Extract feature names
+        preprocessor = pipeline.named_steps["step1"]  # Get preprocessor step
+        numerical_features = preprocessor.transformers_[0][2]  # Numerical columns
+        categorical_features = preprocessor.transformers_[1][1].get_feature_names_out().tolist()  # OHE categorical columns
 
+        feature_names = numerical_features + categorical_features  # Combine all features
 
+        # Extract distinct values for each feature
+        feature_values = {col: X_train[col].unique().tolist() for col in feature_names}
+
+        return {
+            "model_features": feature_names,
+            "feature_values": feature_values  # Dictionary of feature-wise unique values
+        }
+
+    except Exception as e:
+        return {"error": str(e)}
+
+    
 
 
 @app.post("/predict")
